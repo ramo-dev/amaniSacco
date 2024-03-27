@@ -1,0 +1,118 @@
+.CustomLoader {
+  display: flex;
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  backdrop-filter: blur(10px);
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s ease-in-out;
+}
+
+.customLoader.loading .Loader {
+  opacity: 0;
+  transition: opacity 0.8s ease-out;
+}
+
+.Loadingspan {
+  position: absolute;
+  top: 70%;
+  left: 51%;
+  transform: translate(-50%, -50%);
+  font-size: 2.3rem;
+  font-weight: 800;
+}
+.loader {
+  position: absolute;
+  top: 30%;
+  left: 45%;
+  transform: translate(-50%, -50%);
+}
+
+#outline {
+  stroke-dasharray: 2.42777px, 242.77666px;
+  stroke-dashoffset: 0;
+  -webkit-animation: anim 1.6s linear infinite;
+  animation: anim 1.6s linear infinite;
+}
+
+@-webkit-keyframes anim {
+  12.5% {
+    stroke-dasharray: 33.98873px, 242.77666px;
+    stroke-dashoffset: -26.70543px;
+  }
+
+  43.75% {
+    stroke-dasharray: 84.97183px, 242.77666px;
+    stroke-dashoffset: -84.97183px;
+  }
+
+  100% {
+    stroke-dasharray: 2.42777px, 242.77666px;
+    stroke-dashoffset: -240.34889px;
+  }
+}
+
+@keyframes anim {
+  12.5% {
+    stroke-dasharray: 33.98873px, 242.77666px;
+    stroke-dashoffset: -26.70543px;
+  }
+
+  43.75% {
+    stroke-dasharray: 84.97183px, 242.77666px;
+    stroke-dashoffset: -84.97183px;
+  }
+
+  100% {
+    stroke-dasharray: 2.42777px, 242.77666px;
+    stroke-dashoffset: -240.34889px;
+  }
+}
+
+
+
+/* ping Loader */
+.ping {
+ --uib-size: 50px;
+ --uib-speed: 1s;
+ --uib-color: var(--primary-color);
+ position: absolute;
+ height: var(--uib-size);
+ width: var(--uib-size);
+ top:50%;
+  left: 55%;
+  transform: translate(-50%, -50%);
+  scale: 3;
+}
+
+.ping::before,
+.ping::after {
+ content: '';
+ position: absolute;
+ top: 0;
+ left: 0;
+ height: 100%;
+ width: 100%;
+ border-radius: 50%;
+ background-color: var(--uib-color);
+ animation: pulse7132 var(--uib-speed) linear infinite;
+ transform: scale(0);
+ opacity: 0;
+}
+
+.ping::after {
+ animation-delay: calc(var(--uib-speed) / -2);
+}
+
+@keyframes pulse7132 {
+ 0% {
+  transform: scale(0);
+  opacity: 1;
+ }
+
+ 100% {
+  transform: scale(1);
+  opacity: 0;
+ }
+}
