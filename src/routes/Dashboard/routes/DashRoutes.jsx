@@ -4,7 +4,6 @@ import Dashboard from "../Dashboard";
 import { Route, Routes } from "react-router-dom";
 import UserComponent from "./UsersComponent";
 import AccountsComponents from "./AccountsComponent";
-import UserDashboard from "../UserDashboard";
 import ProfileComponent from "./ProfileComponent";
 
 const DashboardRoutes = () => {
