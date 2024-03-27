@@ -1,5 +1,5 @@
-*{
-  margin : 0;
+* {
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
@@ -10,6 +10,22 @@
   transition: filter 300ms;
 }
 
-.navMenu{
+.navMenu {
   width: 100%;
+}
+
+.newsLetter {
+  font-size: 1.2rem;
+  background-color: rgba(0, 0, 0, 0.315);
+  padding: 2em;
+  /* align-items: center; */
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+}
+.newsLetter input{
+  padding: .8rem;
+  width: 100%;
+  border: 1px solid #fff;
+  margin: .1rem 0 1.2rem 0;
 }

@@ -1,11 +1,12 @@
 import { Button, Card, Flex, Typography } from "antd";
 import Navbar from "../components/Navbar";
-import Investor from "../assets/invest.png";
+import Investor from "../assets/sapiens.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { servicesData } from "../components/ServicesData";
 import Accordion from "../components/Accordion";
 import { useState } from "react";
 import { SendSms } from "../components/SendSms";
+import { Toaster, toast } from "sonner";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -13,6 +14,8 @@ const Home = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [Subscribe, setSubscribe] = useState("");
+  const [subPhone, setSubPhone] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -22,10 +25,33 @@ const Home = () => {
     navigate("/register", { state: { formHomeData: formData } });
   }
 
-
+async function handleSubscribe(e) {
+  e.preventDefault();
+  if (subPhone === "") {
+    toast.info("Please enter your phone number");
+    return;
+  } else {
+    try {
+      toast.loading("Subscribing....");
+      await SendSms(name, subPhone, "http://localhost:5050/subscribe");
+      setTimeout(() => {
+        toast.success("Subscribed successfully");
+      }, 2000);
+      toast.dismiss()
+    } catch (err) {
+      console.error(err);
+      toast.error("An error occurred while subscribing");
+    }
+  }
+}
+    const customStyle = {
+      padding: "15px",
+      fontSize: "1rem",
+    }
 
   return (
     <>
+    <Toaster richColors position="top-right" toastOptions={{style : customStyle}}/>
       <div className="background"></div>
       <Navbar />
       <Flex
@@ -33,7 +59,6 @@ const Home = () => {
         justify="space-around"
         style={{ height: "70vh" }}
         wrap="wrap"
-        id="about"
       >
         <Flex
           vertical
@@ -70,8 +95,44 @@ const Home = () => {
             </Link>
           </Flex>
         </Flex>
-        <img src={Investor} alt="" width={650} />
+        <img
+          src={Investor}
+          alt="amani"
+          width={750}
+          style={{ filter: "brightness(0.9)" }}
+        />
       </Flex>
+
+      {/* About  */}
+      <Flex
+        style={{ height: "70vh", marginTop: "32vh" }}
+        justify="center"
+        vertical
+        align="center"
+        id="about"
+      >
+        <Typography.Title style={{ fontSize: "3rem", color: "var(--text)" }}>
+          About <span style={{color : "var(--primary-color)"}}>Us</span>
+        </Typography.Title>
+
+        <Flex gap="large" style={{ padding: "1rem 10rem" , textAlign : "center"}}>
+          <Typography.Text
+            style={{ fontSize: "1.5rem", color: "var(--text)", width: "100%" }}
+          >
+            Amani Sacco stands as a beacon of financial empowerment, offering
+            transformative solutions that resonate across communities. Through
+            our lending services, individuals gain access to vital resources,
+            enabling them to realize their aspirations, weather unforeseen
+            challenges, and secure a brighter future. Complemented by robust
+            educational initiatives, we empower members with the knowledge and
+            tools to navigate their financial landscapes confidently. Our
+            commitment extends beyond transactions, fostering meaningful
+            connections through real-time chat support, ensuring that every
+            member receives timely assistance and guidance.
+          </Typography.Text>
+        </Flex>
+      </Flex>
+
       {/* Services  */}
       <Flex
         style={{ height: "70vh", marginTop: "32vh" }}
@@ -264,15 +325,31 @@ const Home = () => {
       <footer
         style={{
           width: "100%",
-          padding: "2rem",
+          padding: "2rem 2rem",
           marginTop: " 2rem",
           background: "rgba(104, 104, 104, 0.075)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
         }}
       >
-        <Flex justify="center">
-          <Typography.Text style={{ fontSize: "1.3rem", color: "var(--text)" }}>
-            © 2024 Amani Sacco. All Rights Reserved.
-          </Typography.Text>
+        <Flex justify="space-around" gap="45rem" >
+          <form  className="newsLetter" onSubmit={handleSubscribe}>
+            <Typography.Title level={2} style={{ color: "#fff" }}>
+              Subscribe to our newsletter
+            </Typography.Title>
+            <Flex vertical align="start">
+              <input type="text" placeholder="Enter Your Phone Number" onChange={e=>setSubPhone(e.target.value)}/>
+              <button className="btn" type="submit">Subscribe</button>
+            </Flex>
+          </form>
+          <Flex align="center">
+            <Typography.Text
+              style={{ fontSize: "1.3rem", color: "var(--text)" }}
+            >
+              © 2024 Amani Sacco. All Rights Reserved.
+            </Typography.Text>
+          </Flex>
         </Flex>
       </footer>
     </>

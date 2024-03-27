@@ -71,7 +71,7 @@ progress {
   transition: background-color 0.3s;
   border: #000000 !important;
   &:hover {
-    background-color: #555;
+    background-color: #fff;
     color: #000000 !important;
     border: 1px solid #000000 !important;
   }
